@@ -1,7 +1,9 @@
-def call(){
-    sh '''
-    docker stop myapp || true
-    docker rm myapp || true
-    docker run -d -p 5000:5000 --name myapp myapp
-    '''
+def call(String containerName, String imageName) {
+
+    sh """
+    docker stop ${containerName} || true
+    docker rm ${containerName} || true
+    docker run -d -p 5000:5000 --name ${containerName} ${imageName}
+    """
+
 }
