@@ -2,7 +2,7 @@ def call(String projectKey = "flask-app") {
 
     withSonarQubeEnv('Sonarqube') {
 
-        withCredentials([string(credentialsId: 'SonarQube token', variable: 'SONAR_TOKEN')]) {
+        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
 
             sh """
             ${tool 'sonar-scanner'}/bin/sonar-scanner \
