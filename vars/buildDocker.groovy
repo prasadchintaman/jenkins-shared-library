@@ -1,23 +1,9 @@
-def call(String imageName) {
+def call(String containerName, String imageName) {
 
-    script {
+    sh """
+    docker stop ${containerName} || true
+    docker rm ${containerName} || true
 
-        withCredentials([usernamePassword(
-            credentialsId: 'docker-id',
-            usernameVariable: 'DOCKER_USER',
-            passwordVariable: 'DOCKER_PASS'
-        )]) {
-
-            sh """
-            docker build -t \$DOCKER_USER/${imageName} .
-
-            echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin
-
-            docker push \$DOCKER_USER/${imageName}
-            """
-
-        }
-
-    }
-
+    docker run -d -p 5000:5000 --name ${containerName} prasad1993/${imageName}
+    """
 }
