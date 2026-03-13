@@ -9,11 +9,11 @@ def call(String imageName) {
         )]) {
 
             sh """
-            docker build -t \$DOCKER_USER/${imageName}:latest .
+            docker build -t \$DOCKER_USER/${imageName} .
 
             echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin
 
-            docker push \$DOCKER_USER/${imageName}:latest
+            docker push \$DOCKER_USER/${imageName}
             """
 
         }
